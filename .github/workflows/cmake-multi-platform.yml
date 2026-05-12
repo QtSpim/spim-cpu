@@ -30,13 +30,13 @@ jobs:
           - os: windows-latest
             c_compiler: cl
             cpp_compiler: cl
+        exclude:
           - os: ubuntu-latest
             c_compiler: gcc
             cpp_compiler: g++
           - os: ubuntu-latest
             c_compiler: clang
             cpp_compiler: clang++
-        exclude:
           - os: windows-latest
             c_compiler: gcc
           - os: windows-latest
@@ -46,6 +46,19 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+
+    - name: Install WinFlexBison
+      # Install WinFlexBison for Windows
+      if: ${{ runner.os == 'Windows' }}
+      shell: powershell
+      run: |
+        winget install WinFlexBison.win_flex_bison
+        mkdir winflexbisonlinks && cd winflexbisonlinks
+        New-Item -ItemType HardLink -Path flex -Target $(where.exe win_flex)
+        New-Item -ItemType HardLink -Path bison -Target $(where.exe win_bison)
+        $oldPath = [Environment]::GetEnvironmentVariable("Path", "User")
+        $newPath = $oldPath + ";" + $(pwd)
+        [Environment]::SetEnvironmentVariable("Path", $newPath, "User)
 
     - name: Set reusable strings
       # Turn repeated input strings (such as the build output directory) into step outputs. These step outputs can be used throughout the workflow file.
