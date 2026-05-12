@@ -53,7 +53,8 @@ jobs:
       shell: powershell
       run: |
         winget install WinFlexBison.win_flex_bison
-        mkdir winflexbisonlinks && cd winflexbisonlinks
+        mkdir winflexbisonlinks
+        cd winflexbisonlinks
         New-Item -ItemType HardLink -Path flex -Target $(where.exe win_flex)
         New-Item -ItemType HardLink -Path bison -Target $(where.exe win_bison)
         $oldPath = [Environment]::GetEnvironmentVariable("Path", "User")
