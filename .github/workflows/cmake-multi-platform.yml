@@ -52,7 +52,7 @@ jobs:
       if: ${{ runner.os == 'Windows' }}
       shell: powershell
       run: |
-        winget install WinFlexBison.win_flex_bison
+        winget install WinFlexBison.win_flex_bison --silent --accept-package-agreements --accept-source-agreements --disable-interactivity
         mkdir winflexbisonlinks
         cd winflexbisonlinks
         New-Item -ItemType HardLink -Path flex -Target $(where.exe win_flex)
