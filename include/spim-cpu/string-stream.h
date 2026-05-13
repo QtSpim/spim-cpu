@@ -34,7 +34,7 @@
 #pragma once
 
 typedef struct str_stm {
-  char* buf;       /* Buffer containing output */
+  char *buf;       /* Buffer containing output */
   int max_length;  /* Length of buffer */
   int empty_pos;   /* Index  of empty char in stream*/
   int initialized; /* Stream initialized? */
@@ -44,12 +44,12 @@ typedef struct str_stm {
 extern "C" {
 #endif
 
-void ss_init(str_stream* ss);
-void ss_clear(str_stream* ss);
-void ss_erase(str_stream* ss, int n);
-int ss_length(str_stream* ss);
-char* ss_to_string(str_stream* ss);
-void ss_printf(str_stream* ss, const char* fmt, ...);
+void ss_init(str_stream *ss);
+void ss_clear(str_stream *ss);
+void ss_erase(str_stream *ss, int n);
+int ss_length(str_stream *ss);
+char *ss_to_string(str_stream *ss);
+void ss_printf(str_stream *ss, const char *fmt, ...);
 
 #ifdef __cplusplus
 }
