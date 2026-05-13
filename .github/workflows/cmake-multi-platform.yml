@@ -55,6 +55,7 @@ jobs:
         winget install WinFlexBison.win_flex_bison --silent --accept-package-agreements --accept-source-agreements --disable-interactivity
         mkdir WinFlexBisonPath
         cd WinFlexBisonPath
+        . $PROFILE
         New-Item -ItemType HardLink -Path flex -Target $(which.exe win_flex)
         New-Item -ItemType HardLink -Path bison -Target $(which.exe win_bison)
         echo "$(pwd)" >> "$GITHUB_PATH"
