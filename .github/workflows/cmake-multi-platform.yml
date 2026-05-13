@@ -56,7 +56,8 @@ jobs:
         Expand-Archive -Path "win_flex_bison-2.5.25.zip" -DestinationPath "win_flex_bison"
         cd win_flex_bison
         ni "libfl.a"
-        echo "CMAKE_PREFIX_PATH=$(pwd)" >> "$GITHUB_ENV"
+        echo "CMAKE_PREFIX_PATH=$(pwd)" >> "$env:GITHUB_ENV"
+        echo "$(pwd)"
 
       # echo "FLEX_EXECUTABLE=$(pwd)/flex" >> "$GITHUB_ENV"
       # echo "BISON_EXECUTABLE=$(pwd)/bison" >> "$GITHUB_ENV"
