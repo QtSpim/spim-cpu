@@ -63,7 +63,7 @@ typedef union {
 #define ROUND_DOWN(V, B) (((int)V) & ~(B - 1))
 
 /* Sign-extend an int16 to an int32 */
-#define SIGN_EX(X) (((X)&0x8000) ? ((X) | 0xffff0000) : (X))
+#define SIGN_EX(X) (((X) & 0x8000) ? ((X) | 0xffff0000) : (X))
 
 #ifdef MIN /* Some systems define these in system includes */
 #undef MIN
@@ -228,15 +228,15 @@ void write_output(port, const char *fmt, ...);
 
 /* Exported variables: */
 
-extern bool bare_machine;          /* => simulate bare machine */
-extern bool accept_pseudo_insts;   /* => parse pseudo instructions  */
-extern bool delayed_branches;      /* => simulate delayed branches */
-extern bool delayed_loads;         /* => simulate delayed loads */
-extern bool quiet;                 /* => no warning messages */
-extern const char *exception_file_name;  /* File containing exception handler */
-extern bool force_break;           /* => stop interpreter loop  */
-extern bool parser_error_occurred; /* => parse resulted in error */
-extern int spim_return_value;      /* Value returned when spim exits */
+extern bool bare_machine;               /* => simulate bare machine */
+extern bool accept_pseudo_insts;        /* => parse pseudo instructions  */
+extern bool delayed_branches;           /* => simulate delayed branches */
+extern bool delayed_loads;              /* => simulate delayed loads */
+extern bool quiet;                      /* => no warning messages */
+extern const char *exception_file_name; /* File containing exception handler */
+extern bool force_break;                /* => stop interpreter loop  */
+extern bool parser_error_occurred;      /* => parse resulted in error */
+extern int spim_return_value;           /* Value returned when spim exits */
 /* Actual type of structure pointed to depends on X/terminal interface */
 extern port message_out, console_out, console_in;
 extern bool mapped_io; /* => activate memory-mapped IO */

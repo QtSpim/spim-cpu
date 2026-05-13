@@ -34,26 +34,25 @@
 #ifndef _WIN32
 #include <unistd.h>
 #endif
-#include <sys/types.h>
-#include <sys/stat.h>
 #include <fcntl.h>
 #include <stdio.h>
+#include <sys/stat.h>
 #include <sys/types.h>
 
 #ifdef _WIN32
 #include <io.h>
 #endif
 
+#include <spim-cpu/inst.h>
+#include <spim-cpu/mem.h>
+#include <spim-cpu/reg.h>
 #include <spim-cpu/spim.h>
 #include <spim-cpu/string-stream.h>
-#include <spim-cpu/inst.h>
-#include <spim-cpu/reg.h>
-#include <spim-cpu/mem.h>
 #include <spim-cpu/sym-tbl.h>
 #include <spim-cpu/syscall.h>
 
 #ifdef _WIN32
-/* Windows has an handler that is invoked when an invalid argument is passed to
+/* Windows has a handler that is invoked when an invalid argument is passed to
    a system call.
    https://msdn.microsoft.com/en-us/library/a9yf33zb(v=vs.110).aspx
 
@@ -63,12 +62,12 @@
    Override the handler to just report an error.
 */
 
+#include <crtdbg.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <crtdbg.h>
 
-void myInvalidParameterHandler(const wchar_t* expression,
-                               const wchar_t* function, const wchar_t* file,
+void myInvalidParameterHandler(const wchar_t *expression,
+                               const wchar_t *function, const wchar_t *file,
                                unsigned int line, uintptr_t pReserved) {
   if (function != NULL) {
     run_error("Bad parameter to system call: %s\n", function);
@@ -152,7 +151,7 @@ int do_syscall() {
     }
 
     case READ_STRING_SYSCALL: {
-      read_input((char*)mem_reference(R[REG_A0]), R[REG_A1]);
+      read_input((char *)mem_reference(R[REG_A0]), R[REG_A1]);
       data_modified = true;
       break;
     }
@@ -188,7 +187,8 @@ int do_syscall() {
 
     case OPEN_SYSCALL: {
 #ifdef _WIN32
-      R[REG_RES] = _open((char*)mem_reference(R[REG_A0]), R[REG_A1], R[REG_A2]);
+      R[REG_RES] =
+          _open((char *)mem_reference(R[REG_A0]), R[REG_A1], R[REG_A2]);
 #else
       R[REG_RES] = open((char *)mem_reference(R[REG_A0]), R[REG_A1], R[REG_A2]);
 #endif

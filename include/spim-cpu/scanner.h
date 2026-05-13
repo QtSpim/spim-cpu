@@ -33,8 +33,8 @@
 
 #pragma once
 
-#include <stdio.h>
 #include <spim-cpu/spim.h>
+#include <stdio.h>
 
 #ifdef __cplusplus
 extern "C" {
