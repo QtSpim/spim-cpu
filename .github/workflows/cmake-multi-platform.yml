@@ -53,6 +53,8 @@ jobs:
       shell: pwsh
       run: |
         winget install WinFlexBison.win_flex_bison --silent --accept-package-agreements --accept-source-agreements --disable-interactivity
+        Rename-Item -Path "$env:LOCALAPPDATA/Microsoft/WinGet/Links/win_flex" -NewName "$env:LOCALAPPDATA/Microsoft/WinGet/Links/flex"
+        Rename-Item -Path "$env:LOCALAPPDATA/Microsoft/WinGet/Links/win_bison" -NewName "$env:LOCALAPPDATA/Microsoft/WinGet/Links/bison"
         echo "$env:LOCALAPPDATA/Microsoft/WinGet/Links/" >> "$GITHUB_PATH"
 
     - name: Set reusable strings
