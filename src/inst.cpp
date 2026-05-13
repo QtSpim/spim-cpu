@@ -560,7 +560,7 @@ char *inst_to_string(mem_addr addr) {
 
   if (exception_occurred) {
     error("Can't print instruction not in text segment (0x%08x)\n", addr);
-    return "";
+    return str_copy("");
   }
 
   ss_init(&ss);

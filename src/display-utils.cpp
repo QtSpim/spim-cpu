@@ -31,20 +31,20 @@
    POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <spim-cpu/data.h>
+#include <spim-cpu/inst.h>
+#include <spim-cpu/mem.h>
+#include <spim-cpu/reg.h>
+#include <spim-cpu/run.h>
+#include <spim-cpu/spim-utils.h>
 #include <spim-cpu/spim.h>
 #include <spim-cpu/string-stream.h>
-#include <spim-cpu/spim-utils.h>
-#include <spim-cpu/inst.h>
-#include <spim-cpu/data.h>
-#include <spim-cpu/reg.h>
-#include <spim-cpu/mem.h>
-#include <spim-cpu/run.h>
 #include <spim-cpu/sym-tbl.h>
 
-char *int_reg_names[32] = {"r0", "at", "v0", "v1", "a0", "a1", "a2", "a3",
-                           "t0", "t1", "t2", "t3", "t4", "t5", "t6", "t7",
-                           "s0", "s1", "s2", "s3", "s4", "s5", "s6", "s7",
-                           "t8", "t9", "k0", "k1", "gp", "sp", "s8", "ra"};
+const char *int_reg_names[32] = {
+    "r0", "at", "v0", "v1", "a0", "a1", "a2", "a3", "t0", "t1", "t2",
+    "t3", "t4", "t5", "t6", "t7", "s0", "s1", "s2", "s3", "s4", "s5",
+    "s6", "s7", "t8", "t9", "k0", "k1", "gp", "sp", "s8", "ra"};
 
 static mem_addr format_partial_line(str_stream *ss, mem_addr addr);
 
@@ -53,8 +53,8 @@ static mem_addr format_partial_line(str_stream *ss, mem_addr addr);
 
 void format_registers(str_stream *ss, int print_gpr_hex, int print_fpr_hex) {
   int i;
-  char *grstr, *fpstr;
-  char *grfill, *fpfill;
+  const char *grstr, *fpstr;
+  const char *grfill, *fpfill;
 
   ss_printf(ss, " PC      = %08x   ", PC);
   ss_printf(ss, "EPC     = %08x  ", CP0_EPC);

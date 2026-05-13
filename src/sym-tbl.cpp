@@ -44,7 +44,7 @@
 
 /* Local functions: */
 
-static void get_hash(char *name, int *slot_no, label **entry);
+static void get_hash(const char *name, int *slot_no, label **entry);
 static void resolve_a_label_sub(label *sym, instruction *inst, mem_addr pc);
 
 /* Keep track of the memory location that a label represents.  If we
@@ -89,7 +89,7 @@ void initialize_symbol_table() {
    record is already in the table, set ENTRY to point to it.  Otherwise,
    set ENTRY to be NULL. */
 
-static void get_hash(char *name, int *slot_no, label **entry) {
+static void get_hash(const char *name, int *slot_no, label **entry) {
   int hi;
   int i;
   label *lab;
@@ -119,7 +119,7 @@ static void get_hash(char *name, int *slot_no, label **entry) {
 /* Lookup label with NAME.  Either return its symbol table entry or NULL
    if it is not in the table. */
 
-label *label_is_defined(char *name) {
+label *label_is_defined(const char *name) {
   int hi;
   label *entry;
 
@@ -131,7 +131,7 @@ label *label_is_defined(char *name) {
 /* Return a label with a given NAME.  If an label with that name has
    previously been looked-up, the same node is returned this time.  */
 
-label *lookup_label(char *name) {
+label *lookup_label(const char *name) {
   int hi;
   label *entry, *lab;
 
@@ -156,7 +156,7 @@ label *lookup_label(char *name) {
 /* Record that the label named NAME refers to ADDRESS.	If RESOLVE_USES is
    true, resolve all references to it.  Return the label structure. */
 
-label *record_label(char *name, mem_addr address, int resolve_uses) {
+label *record_label(const char *name, mem_addr address, int resolve_uses) {
   label *l = lookup_label(name);
 
   if (!l->gp_flag) {
@@ -180,7 +180,7 @@ label *record_label(char *name, mem_addr address, int resolve_uses) {
 
 /* Make the label named NAME global.  Return its symbol. */
 
-label *make_label_global(char *name) {
+label *make_label_global(const char *name) {
   label *l = lookup_label(name);
 
   l->global_flag = 1;
@@ -357,7 +357,7 @@ void flush_local_labels(int issue_undef_warnings) {
 
 /* Return the address of SYMBOL or 0 if it is undefined. */
 
-mem_addr find_symbol_address(char *symbol) {
+mem_addr find_symbol_address(const char *symbol) {
   label *l = lookup_label(symbol);
 
   if (l == NULL || l->addr == 0)
