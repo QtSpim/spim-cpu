@@ -97,10 +97,17 @@ target_compile_definitions(spim-cpu
     K_TEXT_SIZE=65536
 )
 
-target_compile_options(spim-cpu
-  PUBLIC
-    -Wall -pedantic -Wextra -Wunused -Wno-write-strings
-)
+if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+  target_compile_options(spim-cpu
+    PUBLIC
+      -Wall -pedantic -Wextra -Wunused
+  )
+elseif(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
+  target_compile_options(spim-cpu
+    PUBLIC
+      /W4 /permissive-
+  )
+endif()
 
 # CTest
 ##############################################################################
