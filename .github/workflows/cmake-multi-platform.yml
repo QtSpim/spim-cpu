@@ -66,7 +66,7 @@ jobs:
       if: ${{ runner.os != 'Windows' }}
       shell: bash
       run: |
-        echo "CMAKE_PREFIX_PATH=''" >> "$GITHUB_ENV"
+        echo "CMAKE_PREFIX_PATH=\"\"" >> "$GITHUB_ENV"
 
     - name: Set reusable strings
       # Turn repeated input strings (such as the build output directory) into step outputs. These step outputs can be used throughout the workflow file.
