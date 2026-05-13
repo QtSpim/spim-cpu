@@ -28,6 +28,12 @@ is hosted in an
 - The order of `#include`s no longer matters (yes, it did in the original
   codebase). `#include` guards have also been added to headers.
 
+- The sources of warnings caused by casting away `const`ness have been fixed
+  (previously, these warnings were suppressed during compilation using a
+  compiler flag in the Makefile).
+
+- The API exposed through public headers now has C linkage.
+
 - The project has been transitioned to [CMake](https://cmake.org).
 
 ## Building the project
