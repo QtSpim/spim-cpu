@@ -53,6 +53,7 @@ jobs:
       shell: powershell
       run: |
         winget install WinFlexBison.win_flex_bison --silent --accept-package-agreements --accept-source-agreements --disable-interactivity
+        Start-Process powershell; exit
 
     - name: Add to PATH
       # Add WinFlexBison to PATH
