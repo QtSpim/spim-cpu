@@ -31,51 +31,50 @@
   POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <stdlib.h>
-#include <stdarg.h>
-#include <stdio.h>
-
 #include <spim-cpu/spim.h>
 #include <spim-cpu/string-stream.h>
+#include <stdarg.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 #ifndef SS_BUF_LENGTH
 /* Initialize length of buffer */
 #define SS_BUF_LENGTH 256
 #endif
 
-void ss_init(str_stream* ss) {
-  ss->buf = (char*)malloc(SS_BUF_LENGTH);
+void ss_init(str_stream *ss) {
+  ss->buf = (char *)malloc(SS_BUF_LENGTH);
   ss->max_length = SS_BUF_LENGTH;
   ss->empty_pos = 0;
   ss->initialized = 1;
 }
 
-void ss_clear(str_stream* ss) {
+void ss_clear(str_stream *ss) {
   if (0 == ss->initialized) ss_init(ss);
 
   ss->empty_pos = 0;
 }
 
-void ss_erase(str_stream* ss, int n) {
+void ss_erase(str_stream *ss, int n) {
   if (0 == ss->initialized) ss_init(ss);
 
   ss->empty_pos -= n;
   if (ss->empty_pos < 0) ss->empty_pos = 0;
 }
 
-int ss_length(str_stream* ss) {
+int ss_length(str_stream *ss) {
   if (0 == ss->initialized) ss_init(ss);
 
   return ss->empty_pos;
 }
 
-char* ss_to_string(str_stream* ss) {
+char *ss_to_string(str_stream *ss) {
   if (0 == ss->initialized) ss_init(ss);
 
   if (ss->empty_pos == ss->max_length) {
     /* Not enough room to store output: increase buffer size and try again */
     ss->max_length = ss->max_length + 1;
-    ss->buf = (char*)realloc(ss->buf, (size_t)ss->max_length);
+    ss->buf = (char *)realloc(ss->buf, (size_t)ss->max_length);
     if (NULL == ss->buf) fatal_error("realloc failed\n");
   }
   ss->buf[ss->empty_pos] = '\0'; /* Null terminate string */
@@ -83,7 +82,7 @@ char* ss_to_string(str_stream* ss) {
   return ss->buf;
 }
 
-void ss_printf(str_stream* ss, const char* fmt, ...) {
+void ss_printf(str_stream *ss, const char *fmt, ...) {
   int free_space;
   int n;
   va_list args;
@@ -104,7 +103,7 @@ void ss_printf(str_stream* ss, const char* fmt, ...) {
   {
     /* Not enough room to store output: double buffer size and try again */
     ss->max_length = 2 * ss->max_length;
-    ss->buf = (char*)realloc(ss->buf, (size_t)ss->max_length);
+    ss->buf = (char *)realloc(ss->buf, (size_t)ss->max_length);
     free_space = ss->max_length - ss->empty_pos;
     if (NULL == ss->buf) fatal_error("realloc failed\n");
 

@@ -31,20 +31,19 @@
    POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <stdio.h>
-#include <string.h>
-
+#include <spim-cpu/data.h>
+#include <spim-cpu/inst.h>
+#include <spim-cpu/mem.h>
+#include <spim-cpu/parser-yacc.h>
+#include <spim-cpu/parser.h>
+#include <spim-cpu/reg.h>
+#include <spim-cpu/scanner.h>
+#include <spim-cpu/spim-utils.h>
 #include <spim-cpu/spim.h>
 #include <spim-cpu/string-stream.h>
-#include <spim-cpu/spim-utils.h>
-#include <spim-cpu/inst.h>
-#include <spim-cpu/reg.h>
-#include <spim-cpu/mem.h>
 #include <spim-cpu/sym-tbl.h>
-#include <spim-cpu/parser.h>
-#include <spim-cpu/scanner.h>
-#include <spim-cpu/parser-yacc.h>
-#include <spim-cpu/data.h>
+#include <stdio.h>
+#include <string.h>
 
 /* Local functions: */
 
@@ -1040,7 +1039,7 @@ static void sort_i_opcode_table() {
         sizeof(name_val_val), (QSORT_FUNC)compare_pair_value);
 }
 
-#define REGS(R, O) (((R)&0x1f) << O)
+#define REGS(R, O) (((R) & 0x1f) << O)
 
 int32 inst_encode(instruction *inst) {
   int32 a_opcode = 0;

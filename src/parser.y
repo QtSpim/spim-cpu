@@ -436,6 +436,11 @@
 %token Y_VREG_DIR
 %token Y_WORD_DIR
 
+%code requires {
+#include <spim-cpu/scanner.h>
+#include <spim-cpu/parser.h>
+}
+
 %{
 #include <stdio.h>
 

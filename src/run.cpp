@@ -46,21 +46,21 @@
 #include <Windows.h>
 #else
 #include <errno.h>
-#include <stdlib.h>
 #include <signal.h>
+#include <stdlib.h>
 #include <sys/time.h>
 #endif
 
+#include <spim-cpu/inst.h>
+#include <spim-cpu/mem.h>
+#include <spim-cpu/parser-yacc.h>
+#include <spim-cpu/reg.h>
+#include <spim-cpu/run.h>
+#include <spim-cpu/spim-utils.h>
 #include <spim-cpu/spim.h>
 #include <spim-cpu/string-stream.h>
-#include <spim-cpu/spim-utils.h>
-#include <spim-cpu/inst.h>
-#include <spim-cpu/reg.h>
-#include <spim-cpu/mem.h>
 #include <spim-cpu/sym-tbl.h>
-#include <spim-cpu/parser-yacc.h>
 #include <spim-cpu/syscall.h>
-#include <spim-cpu/run.h>
 
 bool force_break =
     false; /* For the execution env. to force an execution break */
@@ -83,7 +83,7 @@ void CALLBACK timer_completion_routine(LPVOID lpArgToCompletionRoutine,
 #endif
 static void unsigned_multiply(reg_word v1, reg_word v2);
 
-#define SIGN_BIT(X) ((X)&0x80000000)
+#define SIGN_BIT(X) ((X) & 0x80000000)
 
 #define ARITH_OVFL(RESULT, OP1, OP2) \
   (SIGN_BIT(OP1) == SIGN_BIT(OP2) && SIGN_BIT(OP1) != SIGN_BIT(RESULT))
@@ -125,7 +125,7 @@ static int running_in_delay_slot = 0;
       running_in_delay_slot = 0;                 \
     }                                            \
     /* -4 since PC is bumped after this inst */  \
-    PC = (TARGET)-BYTES_PER_WORD;                \
+    PC = (TARGET) - BYTES_PER_WORD;              \
   }
 
 /* If the delayed_load flag is false, the result from a load is available
@@ -135,8 +135,7 @@ static int running_in_delay_slot = 0;
    destination, as the instruction following the load can itself be a load
    instruction. */
 
-#define LOAD_INST(DEST_A, LD, MASK) \
-  { LOAD_INST_BASE(DEST_A, (LD & (MASK))) }
+#define LOAD_INST(DEST_A, LD, MASK) {LOAD_INST_BASE(DEST_A, (LD & (MASK)))}
 
 #define LOAD_INST_BASE(DEST_A, VALUE) \
   {                                   \
@@ -1438,7 +1437,7 @@ bool run_spim(mem_addr initial_PC, int steps_to_run, bool display) {
         handle_exception();
       }
     } /* End: for (step = 0; ... */
-  }   /* End: for ( ; steps_to_run > 0 ... */
+  } /* End: for ( ; steps_to_run > 0 ... */
 
   /* Executed enought steps, return, but are able to continue. */
   return true;
