@@ -55,17 +55,17 @@ jobs:
         Invoke-WebRequest -Uri https://github.com/lexxmark/winflexbison/releases/download/v2.5.25/win_flex_bison-2.5.25.zip -OutFile win_flex_bison-2.5.25.zip
         Expand-Archive -Path "win_flex_bison-2.5.25.zip" -DestinationPath "win_flex_bison"
         cd win_flex_bison
-        Rename-Item -Path "win_flex.exe" -NewName "flex.exe"
-        Rename-Item -Path "win_bison.exe" -NewName "bison.exe"
-        echo "FLEX=$(pwd)/flex.exe" >> "$GITHUB_ENV"
-        echo "BISON=$(pwd)/bison.exe" >> "$GITHUB_ENV"
+        Rename-Item -Path "win_flex.exe" -NewName "flex"
+        Rename-Item -Path "win_bison.exe" -NewName "bison"
+        echo "FLEX=$(pwd)/flex" >> "$GITHUB_ENV"
+        echo "BISON=$(pwd)/bison" >> "$GITHUB_ENV"
 
     - name: Add Flex and Bison environment variables
       if: ${{ runner.os != 'Windows' }}
       shell: bash
       run: |
-        echo "FLEX=flex" >> "$GITHUB_ENV"
-        echo "BISON=bison" >> "$GITHUB_ENV"
+        echo "FLEX=$(which flex)" >> "$GITHUB_ENV"
+        echo "BISON=$(which bison)" >> "$GITHUB_ENV"
 
     - name: Set reusable strings
       # Turn repeated input strings (such as the build output directory) into step outputs. These step outputs can be used throughout the workflow file.
