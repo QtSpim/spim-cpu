@@ -63,15 +63,15 @@ extern "C" {
 
 /* Exported functions: */
 
-mem_addr find_symbol_address(char* symbol);
+mem_addr find_symbol_address(const char* symbol);
 void flush_local_labels(int issue_undef_warnings);
 void initialize_symbol_table();
-label* label_is_defined(char* name);
-label* lookup_label(char* name);
-label* make_label_global(char* name);
+label* label_is_defined(const char* name);
+label* lookup_label(const char* name);
+label* make_label_global(const char* name);
 void print_symbols();
 void print_undefined_symbols();
-label* record_label(char* name, mem_addr address, int resolve_uses);
+label* record_label(const char* name, mem_addr address, int resolve_uses);
 void record_data_uses_symbol(mem_addr location, label* sym);
 void record_inst_uses_symbol(instruction* inst, label* sym);
 char* undefined_symbol_string();

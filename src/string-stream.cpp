@@ -83,7 +83,7 @@ char* ss_to_string(str_stream* ss) {
   return ss->buf;
 }
 
-void ss_printf(str_stream* ss, char* fmt, ...) {
+void ss_printf(str_stream* ss, const char* fmt, ...) {
   int free_space;
   int n;
   va_list args;

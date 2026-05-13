@@ -76,7 +76,7 @@ mem_addr initial_k_data_limit = K_DATA_LIMIT;
 
 /* Initialize or reinitialize the state of the machine. */
 
-void initialize_world(char *exception_file_names, bool print_message) {
+void initialize_world(const char *exception_file_names, bool print_message) {
   /* Allocate the floating point registers */
   if (FGR == NULL) FPR = (double *)xmalloc(FPR_LENGTH * sizeof(double));
   /* Allocate the memory */
@@ -167,7 +167,7 @@ void initialize_registers() {
 /* Read file NAME, which should contain assembly code. Return true if
    successful and false otherwise. */
 
-bool read_assembly_file(char *name) {
+bool read_assembly_file(const char *name) {
   FILE *file = fopen(name, "rt");
 
   if (file == NULL) {
@@ -397,13 +397,13 @@ void list_breakpoints() {
    Return NULL if no such entry exists. */
 
 name_val_val *map_string_to_name_val_val(name_val_val tbl[], int tbl_len,
-                                         char *id) {
+                                         const char *id) {
   int low = 0;
   int hi = tbl_len - 1;
 
   while (low <= hi) {
     int mid = (low + hi) / 2;
-    char *idp = id, *np = tbl[mid].name;
+    const char *idp = id, *np = tbl[mid].name;
 
     while (*idp == *np && *idp != '\0') {
       idp++;
@@ -496,7 +496,7 @@ unsigned long strtoul(const char *str, char **eptr, int base) {
 }
 #endif
 
-char *str_copy(char *str) {
+char *str_copy(const char *str) {
   return (strcpy((char *)xmalloc((int)strlen(str) + 1), str));
 }
 

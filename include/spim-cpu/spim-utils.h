@@ -40,7 +40,7 @@
    mapping from a name to values. */
 
 typedef struct {
-  char *name;
+  const char *name;
   int value1;
   int value2;
 } name_val_val;
@@ -60,16 +60,16 @@ void format_registers(str_stream *ss, int print_gpr_hex, int print_fpr_hex);
 void initialize_registers();
 void initialize_stack(const char *command_line);
 void initialize_run_stack(int argc, char **argv);
-void initialize_world(char *exception_file_names, bool print_message);
+void initialize_world(const char *exception_file_names, bool print_message);
 void list_breakpoints();
 name_val_val *map_int_to_name_val_val(name_val_val tbl[], int tbl_len, int num);
 name_val_val *map_string_to_name_val_val(name_val_val tbl[], int tbl_len,
-                                         char *id);
-bool read_assembly_file(char *name);
+                                         const char *id);
+bool read_assembly_file(const char *name);
 bool run_program(mem_addr pc, int steps, bool display, bool cont_bkpt,
                  bool *continuable);
 mem_addr starting_address();
-char *str_copy(char *str);
+char *str_copy(const char *str);
 void write_startup_message();
 void *xmalloc(int);
 void *zmalloc(int);

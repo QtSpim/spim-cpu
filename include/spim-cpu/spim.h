@@ -218,13 +218,13 @@ extern "C" {
 /* Exported functions (from spim.c or xspim.c): */
 
 int console_input_available();
-void error(char *fmt, ...);
-void fatal_error(char *fmt, ...);
+void error(const char *fmt, ...);
+void fatal_error(const char *fmt, ...);
 char get_console_char();
 void put_console_char(char c);
 void read_input(char *str, int n);
-void run_error(char *fmt, ...);
-void write_output(port, char *fmt, ...);
+void run_error(const char *fmt, ...);
+void write_output(port, const char *fmt, ...);
 
 /* Exported variables: */
 
@@ -233,7 +233,7 @@ extern bool accept_pseudo_insts;   /* => parse pseudo instructions  */
 extern bool delayed_branches;      /* => simulate delayed branches */
 extern bool delayed_loads;         /* => simulate delayed loads */
 extern bool quiet;                 /* => no warning messages */
-extern char *exception_file_name;  /* File containing exception handler */
+extern const char *exception_file_name;  /* File containing exception handler */
 extern bool force_break;           /* => stop interpreter loop  */
 extern bool parser_error_occurred; /* => parse resulted in error */
 extern int spim_return_value;      /* Value returned when spim exits */

@@ -491,7 +491,7 @@ static void set_gt_inst (int op, int rd, int rs, int rt);
 static void set_le_inst (int op, int rd, int rs, int rt);
 static void store_word_data (int value);
 static void trap_inst ();
-static void yywarn (char*);
+static void yywarn (const char*);
 
 
 /* Local variables: */
@@ -505,7 +505,7 @@ static label_list *this_line_labels = NULL; /* List of label for curent line */
 
 static bool noat_flag = 0;	/* => program can use $1 */
 
-static char *input_file_name;	/* Name of file being parsed */
+static const char *input_file_name;	/* Name of file being parsed */
 
 %}
 
@@ -2889,7 +2889,7 @@ store_word_data (int value)
 
 
 void
-initialize_parser (char *file_name)
+initialize_parser (const char *file_name)
 {
   input_file_name = file_name;
   only_id = 0;
@@ -2938,7 +2938,7 @@ check_uimm_range (imm_expr* expr, uint32 min, uint32 max)
 }
 
 void
-yyerror (char *s)
+yyerror (const char *s)
 {
   parse_error_occurred = true;
   clear_labels ();
@@ -2947,7 +2947,7 @@ yyerror (char *s)
 
 
 void
-yywarn (char *s)
+yywarn (const char *s)
 {
   error ("spim: (parser) %s on line %d of file %s\n%s", s, line_no, input_file_name, erroneous_line ());
 }
