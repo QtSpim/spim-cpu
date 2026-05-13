@@ -31,16 +31,16 @@
    POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <spim-cpu/data.h>
+#include <spim-cpu/inst.h>
+#include <spim-cpu/mem.h>
+#include <spim-cpu/parser.h>
+#include <spim-cpu/reg.h>
+#include <spim-cpu/run.h>
+#include <spim-cpu/spim-utils.h>
 #include <spim-cpu/spim.h>
 #include <spim-cpu/string-stream.h>
-#include <spim-cpu/spim-utils.h>
-#include <spim-cpu/inst.h>
-#include <spim-cpu/reg.h>
-#include <spim-cpu/mem.h>
 #include <spim-cpu/sym-tbl.h>
-#include <spim-cpu/parser.h>
-#include <spim-cpu/run.h>
-#include <spim-cpu/data.h>
 
 /* The first 64K of the data segment are dedicated to small data
    segment, which is pointed to by $gp. This register points to the

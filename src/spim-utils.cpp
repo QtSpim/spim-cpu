@@ -31,24 +31,22 @@
    POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <stdio.h>
 #include <ctype.h>
-#include <string.h>
-#include <stdarg.h>
-
-#include <spim-cpu/spim.h>
-#include <spim-cpu/version.h>
-#include <spim-cpu/string-stream.h>
-#include <spim-cpu/spim-utils.h>
-#include <spim-cpu/inst.h>
 #include <spim-cpu/data.h>
-#include <spim-cpu/reg.h>
+#include <spim-cpu/inst.h>
 #include <spim-cpu/mem.h>
-#include <spim-cpu/scanner.h>
 #include <spim-cpu/parser.h>
-#include <spim-cpu/parser-yacc.h>
+#include <spim-cpu/reg.h>
 #include <spim-cpu/run.h>
+#include <spim-cpu/scanner.h>
+#include <spim-cpu/spim-utils.h>
+#include <spim-cpu/spim.h>
+#include <spim-cpu/string-stream.h>
 #include <spim-cpu/sym-tbl.h>
+#include <spim-cpu/version.h>
+#include <stdarg.h>
+#include <stdio.h>
+#include <string.h>
 
 /* Internal functions: */
 
@@ -177,8 +175,7 @@ bool read_assembly_file(const char *name) {
     initialize_scanner(file);
     initialize_parser(name);
 
-    while (!yyparse())
-      ;
+    while (!yyparse());
 
     fclose(file);
     flush_local_labels(!parse_error_occurred);

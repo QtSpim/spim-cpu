@@ -31,16 +31,16 @@
    POSSIBILITY OF SUCH DAMAGE.
 */
 
+#include <spim-cpu/data.h>
+#include <spim-cpu/inst.h>
+#include <spim-cpu/mem.h>
+#include <spim-cpu/parser-yacc.h>
+#include <spim-cpu/parser.h>
+#include <spim-cpu/reg.h>
+#include <spim-cpu/spim-utils.h>
 #include <spim-cpu/spim.h>
 #include <spim-cpu/string-stream.h>
-#include <spim-cpu/spim-utils.h>
-#include <spim-cpu/inst.h>
-#include <spim-cpu/reg.h>
-#include <spim-cpu/mem.h>
-#include <spim-cpu/data.h>
-#include <spim-cpu/parser.h>
 #include <spim-cpu/sym-tbl.h>
-#include <spim-cpu/parser-yacc.h>
 
 /* Local functions: */
 
@@ -96,8 +96,7 @@ static void get_hash(const char *name, int *slot_no, label **entry) {
   int len;
 
   /* Compute length of name in len.  */
-  for (len = 0; name[len]; len++)
-    ;
+  for (len = 0; name[len]; len++);
 
   /* Compute hash code */
   hi = len;
