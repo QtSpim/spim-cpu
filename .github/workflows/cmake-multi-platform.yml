@@ -52,10 +52,12 @@ jobs:
       if: ${{ runner.os == 'Windows' }}
       shell: pwsh
       run: |
-        winget install WinFlexBison.win_flex_bison --silent --accept-package-agreements --accept-source-agreements --disable-interactivity
-        Rename-Item -Path "$env:LOCALAPPDATA/Microsoft/WinGet/Links/win_flex" -NewName "$env:LOCALAPPDATA/Microsoft/WinGet/Links/flex"
-        Rename-Item -Path "$env:LOCALAPPDATA/Microsoft/WinGet/Links/win_bison" -NewName "$env:LOCALAPPDATA/Microsoft/WinGet/Links/bison"
-        echo "$env:LOCALAPPDATA/Microsoft/WinGet/Links/" >> "$GITHUB_PATH"
+        Invoke-WebRequest -Uri https://github.com/lexxmark/winflexbison/releases/download/v2.5.25/win_flex_bison-2.5.25.zip -OutFile win_flex_bison-2.5.25.zip
+        Expand-Archive -Path "win_flex_bison-2.5.25.zip" -DestinationPath "win_flex_bison"
+        cd win_flex_bison
+        Rename-Item -Path "win_flex.exe" -NewName "flex.exe"
+        Rename-Item -Path "win_bison.exe" -NewName "bison.exe"
+        echo "$(pwd)" >> "$GITHUB_PATH"
 
     - name: Set reusable strings
       # Turn repeated input strings (such as the build output directory) into step outputs. These step outputs can be used throughout the workflow file.
