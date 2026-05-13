@@ -1,5 +1,7 @@
 # Spim CPU
 
+[![Cross-platform build](https://github.com/QtSpim/spim-cpu/actions/workflows/cmake-multi-platform.yml/badge.svg)](https://github.com/QtSpim/spim-cpu/actions/workflows/cmake-multi-platform.yml)
+
 This repository houses the backend of the Spim simulator: a simulator for
 the MIPS R2000 and R3000 processors, a rudimentary operating system, a
 linker, a loader, a simple debugger, and an assembler for MIPS-I and MIPS32
