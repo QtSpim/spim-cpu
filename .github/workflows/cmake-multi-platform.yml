@@ -57,7 +57,15 @@ jobs:
         cd win_flex_bison
         Rename-Item -Path "win_flex.exe" -NewName "flex.exe"
         Rename-Item -Path "win_bison.exe" -NewName "bison.exe"
-        echo "$(pwd)" >> "$GITHUB_PATH"
+        echo "FLEX=$(pwd)/flex.exe" >> "$GITHUB_ENV"
+        echo "BISON=$(pwd)/bison.exe" >> "$GITHUB_ENV"
+
+    - name: Add Flex and Bison environment variables
+      if: ${{ runner.os != 'Windows' }}
+      shell: bash
+      run: |
+        echo "FLEX=flex" >> "$GITHUB_ENV"
+        echo "BISON=bison" >> "$GITHUB_ENV"
 
     - name: Set reusable strings
       # Turn repeated input strings (such as the build output directory) into step outputs. These step outputs can be used throughout the workflow file.
@@ -74,6 +82,8 @@ jobs:
         -DCMAKE_CXX_COMPILER=${{ matrix.cpp_compiler }}
         -DCMAKE_C_COMPILER=${{ matrix.c_compiler }}
         -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
+        -DFLEX_EXECUTABLE="$FLEX"
+        -DBISON_EXECUTABLE="$BISON"
         -S ${{ github.workspace }}
 
     - name: Build
