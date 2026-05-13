@@ -45,28 +45,19 @@ jobs:
             c_compiler: cl
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
 
     - name: Install WinFlexBison
       # Install WinFlexBison for Windows
       if: ${{ runner.os == 'Windows' }}
-      shell: powershell
+      shell: pwsh
       run: |
         winget install WinFlexBison.win_flex_bison --silent --accept-package-agreements --accept-source-agreements --disable-interactivity
-        Start-Process powershell; exit
-
-    - name: Add to PATH
-      # Add WinFlexBison to PATH
-      if: ${{ runner.os == 'Windows' }}
-      shell: powershell
-      run: |
-        mkdir winflexbisonlinks
-        cd winflexbisonlinks
-        New-Item -ItemType HardLink -Path flex -Target $(where.exe win_flex)
-        New-Item -ItemType HardLink -Path bison -Target $(where.exe win_bison)
-        $oldPath = [Environment]::GetEnvironmentVariable("Path", "User")
-        $newPath = $oldPath + ";" + $(pwd)
-        [Environment]::SetEnvironmentVariable("Path", $newPath, "User")
+        mkdir WinFlexBisonPath
+        cd WinFlexBisonPath
+        New-Item -ItemType HardLink -Path flex -Target $(which.exe win_flex)
+        New-Item -ItemType HardLink -Path bison -Target $(which.exe win_bison)
+        echo "$(pwd)" >> "$GITHUB_PATH"
 
     - name: Set reusable strings
       # Turn repeated input strings (such as the build output directory) into step outputs. These step outputs can be used throughout the workflow file.
