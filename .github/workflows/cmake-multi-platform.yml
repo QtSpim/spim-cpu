@@ -49,26 +49,10 @@ jobs:
     - uses: actions/checkout@v6
 
     - name: Install WinFlexBison
-      # Download and install WinFlexBison for Windows
+      # Install WinFlexBison for Windows
       if: ${{ runner.os == 'Windows' }}
-      shell: pwsh
-      run: |
-        Invoke-WebRequest -Uri https://github.com/lexxmark/winflexbison/releases/download/v2.5.25/win_flex_bison-2.5.25.zip -OutFile win_flex_bison-2.5.25.zip
-        Expand-Archive -Path "win_flex_bison-2.5.25.zip" -DestinationPath "win_flex_bison"
-        cd win_flex_bison
-        ni "libfl.a"
-        echo "CMAKE_PREFIX_PATH=$(pwd)" >> "$env:GITHUB_ENV"
-        echo "$(pwd)"
-
-      # echo "FLEX_EXECUTABLE=$(pwd)/flex" >> "$GITHUB_ENV"
-      # echo "BISON_EXECUTABLE=$(pwd)/bison" >> "$GITHUB_ENV"
-      # echo "FLEX_INCLUDE_DIR=$(pwd)" >> "$GITHUB_ENV"
-
-    - name: Add empty CMAKE_PREFIX_PATH variable
-      if: ${{ runner.os != 'Windows' }}
-      shell: bash
-      run: |
-        echo "CMAKE_PREFIX_PATH=\"\"" >> "$GITHUB_ENV"
+      shell: cmd
+      run: winget install WinFlexBison.win_flex_bison
 
     - name: Set reusable strings
       # Turn repeated input strings (such as the build output directory) into step outputs. These step outputs can be used throughout the workflow file.
@@ -85,7 +69,6 @@ jobs:
         -DCMAKE_CXX_COMPILER=${{ matrix.cpp_compiler }}
         -DCMAKE_C_COMPILER=${{ matrix.c_compiler }}
         -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
-        -DCMAKE_PREFIX_PATH=${{ env.CMAKE_PREFIX_PATH }}
         -S ${{ github.workspace }} --debug-find
 
     - name: Build
