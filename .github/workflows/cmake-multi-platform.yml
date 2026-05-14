@@ -52,7 +52,7 @@ jobs:
       # Install WinFlexBison for Windows
       if: ${{ runner.os == 'Windows' }}
       shell: cmd
-      run: winget install WinFlexBison.win_flex_bison
+      run: winget install WinFlexBison.win_flex_bison --silent --disable-interactivity --accept-package-agreements --accept-source-agreements
 
     - name: Set reusable strings
       # Turn repeated input strings (such as the build output directory) into step outputs. These step outputs can be used throughout the workflow file.
